@@ -1,5 +1,5 @@
 python:
-  type: simple
+  type: wsgi
   app: app
   app_file: app.py
 build:
