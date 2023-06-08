@@ -1,4 +1,5 @@
 flask
 pillow
 torch
-git+https://github.com/sanchit-gandhi/whisper-jax.git
+whisper_jax @ git+https://github.com/sanchit-gandhi/whisper-jax.git
+
