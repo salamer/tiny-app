@@ -1,0 +1,6 @@
+python:
+  type: simple
+  app: app
+  app_file: app.py
+build:
+  script: build.sh
