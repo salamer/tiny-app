@@ -1,0 +1,4 @@
+python:
+  type: simple
+  app: app
+  app_file: app.py
