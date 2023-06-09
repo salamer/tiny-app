@@ -4,7 +4,7 @@ from whisper_jax import FlaxWhisperPipline
 import jax.numpy as jnp
 
 # instantiate pipeline in bfloat16
-pipeline = FlaxWhisperPipline("openai/whisper-medium", dtype=jnp.bfloat16)
+pipeline = FlaxWhisperPipline("openai/whisper-base", dtype=jnp.bfloat16)
 
 
 ALLOWED_EXTENSIONS = {'wav', 'mp3'}
