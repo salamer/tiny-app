@@ -1,6 +1,4 @@
-from huggingface_hub import hf_hub_download
-
-REPO_ID = "mT5_multilingual_XLSum"
-
-
-hf_hub_download(repo_id=REPO_ID, filename=FILENAME)
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+model_name = "csebuetnlp/mT5_multilingual_XLSum"
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
