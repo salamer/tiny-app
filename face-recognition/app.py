@@ -25,7 +25,7 @@ def detect_faces_in_image(file_stream):
         final = Image.fromarray(faceImage)
         buffered = BytesIO()
         final.save(buffered, format="JPEG")
-        img_str = base64.b64encode(buffered.getvalue())
+        img_str = base64.b64encode(buffered.getvalue()).decode("utf-8")
         result.append(img_str)
     return result
 
