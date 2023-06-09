@@ -25,8 +25,8 @@ def xx():
     return {"qq":"xx"}
 
 
-def handle_audio(file_stream):
-    text = pipeline(file_stream)
+def handle_audio(file_stream, lang="en"):
+    text = pipeline(file_stream, task="transcribe", language=lang)
     return text
 
 @app.route('/upload', methods=['GET', 'POST'])
@@ -43,7 +43,8 @@ def upload_image():
 
         if file and allowed_file(file.filename):
             # The image file seems valid! Detect faces and return the result.
-            return handle_audio(file)
+            lang = request.args.get('lang', 'en')
+            return handle_audio(file, lang=lang)
 
     # If no valid image file was uploaded, show the file upload form:
     return '''
