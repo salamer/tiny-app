@@ -4,7 +4,7 @@ from whisper_jax import FlaxWhisperPipline
 import jax.numpy as jnp
 
 # instantiate pipeline in bfloat16
-pipeline = FlaxWhisperPipline("openai/whisper-large-v2", dtype=jnp.bfloat16)
+pipeline = FlaxWhisperPipline("openai/whisper-medium", dtype=jnp.bfloat16)
 
 
 ALLOWED_EXTENSIONS = {'wav', 'mp3'}
@@ -26,8 +26,8 @@ def xx():
 
 
 def handle_audio(file_stream):
-    audio = pipeline(file_stream)
-    return audio
+    text = pipeline(file_stream)
+    return text
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_image():
@@ -43,7 +43,7 @@ def upload_image():
 
         if file and allowed_file(file.filename):
             # The image file seems valid! Detect faces and return the result.
-            return detect_faces_in_image(file)
+            return handle_audio(file)
 
     # If no valid image file was uploaded, show the file upload form:
     return '''
