@@ -1,4 +1,3 @@
 flask
 pillow
 cmake
-transformers
