@@ -1,5 +1,4 @@
 flask
 pillow
-torch
 -e git+https://github.com/openai/whisper.git#egg=whisper
 
