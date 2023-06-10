@@ -1,10 +1,8 @@
 from flask import Flask, render_template, request, redirect
 import base64
-from whisper_jax import FlaxWhisperPipline
-import jax.numpy as jnp
+import whisper
 
-# instantiate pipeline in bfloat16
-pipeline = FlaxWhisperPipline("openai/whisper-base", dtype=jnp.bfloat16)
+model = whisper.load_model("base")
 
 
 ALLOWED_EXTENSIONS = {'wav', 'mp3'}
@@ -26,8 +24,21 @@ def xx():
 
 
 def handle_audio(file_stream, lang="en"):
-    text = pipeline(file_stream, task="transcribe", language=lang)
-    return text
+    # load audio and pad/trim it to fit 30 seconds
+    audio = whisper.load_audio(file_stream)
+    audio = whisper.pad_or_trim(audio)
+
+    # make log-Mel spectrogram and move to the same device as the model
+    mel = whisper.log_mel_spectrogram(audio).to(model.device)
+
+    # detect the spoken language
+    _, probs = model.detect_language(mel)
+    print(f"Detected language: {max(probs, key=probs.get)}")
+
+    # decode the audio
+    options = whisper.DecodingOptions()
+    result = whisper.decode(model, mel, options)
+    return result
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_image():
