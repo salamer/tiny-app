@@ -1,4 +1,4 @@
 flask
 pillow
--e git+https://github.com/openai/whisper.git#egg=whisper
+-e git+https://github.com/openai/whisper.git#egg=openai-whisper
 
